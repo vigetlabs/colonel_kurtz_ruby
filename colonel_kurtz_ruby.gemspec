@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["developers@viget.com"]
 
   spec.summary       = "Ruby wrapper for Colonel Kurtz data"
-  spec.description   = "Ruby wrapper for Colonel Kurtz data"
-  spec.homepage      = "github.com/vigetlabs/colonel_kurtz_ruby"
+  spec.description   = "Colonel Kurtz Ruby is a lightweight shim between the JSON data that Colonel Kurtz (https://github.com/vigetlabs/colonel-kurtz) creates and POROs."
+  spec.homepage      = "https://github.com/vigetlabs/colonel_kurtz_ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler",        "~> 1.8"
   spec.add_development_dependency "rake",           "~> 10.0"
-  spec.add_development_dependency "rspec",          "~> 3.2.0"
-  spec.add_development_dependency "pry",            "~> 0.10.1"
-  spec.add_development_dependency "activesupport",  "~> 4.2.1"
+  spec.add_development_dependency "rspec",          "~> 3.2"
+  spec.add_development_dependency "pry",            "~> 0.10"
+  spec.add_development_dependency "activesupport",  "~> 4.2"
 end
