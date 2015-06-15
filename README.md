@@ -20,6 +20,72 @@ Or install it yourself as:
 
 ## Usage
 
+Colonel Kurtz Ruby is a lightweight shim between the JSON data that Colonel Kurtz (https://github.com/vigetlabs/colonel-kurtz) creates and POROs.
+
+#### Example
+
+for Colonel Kurtz `data`:
+
+```JSON
+{
+  "type"    : "example-block",
+  "content" : { "html" : "<p>Example</p>" },
+  "blocks"  : [
+    {
+      "type"    : "example-block",
+      "content" : { "html" : "<p>Text</p>" },
+      "blocks"  : []
+    }
+  ]
+}
+```
+
+```ruby
+block = ColonelKurtz::Block.new(data)
+
+block.type
+#=> :example_block
+
+block.contents
+#=> { "html" => "<p>Example</p>" }
+
+block.children
+#=> [
+  #<ColonelKurtz::Block:0x007fb0eb7bf950....>
+]
+```
+
+#### Model
+
+Colonel Kurtz Ruby also includes a model mixin for exposing fields that contain Colonel Kurtz data.
+
+```ruby
+class BlockableExample
+  extend ColonelKurtz::Model::Blockable
+
+  has_blocks :content
+
+  attr_reader :data
+
+  def initialize(data)
+    @data = data
+  end
+
+  def content
+    JSON.generate([data])
+  end
+end
+```
+
+```ruby
+example = BlockExample.new(data)
+
+example.content_blocks
+#=> [
+  #<ColonelKurtz::Block:0x007fb0eb7bf950....
+  ...
+]
+```
 
 ## Development
 
