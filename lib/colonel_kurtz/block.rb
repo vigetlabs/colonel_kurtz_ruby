@@ -42,44 +42,5 @@ module ColonelKurtz
     def blocks
       data.fetch("blocks", [])
     end
-
-
-    class Data
-
-      attr_reader :data
-
-      def initialize(data)
-        @data = data
-      end
-
-      def to_hash
-        defined?(HashWithIndifferentAccess) ? with_indifferent_access(data) : data
-      end
-
-
-      private
-
-      def with_indifferent_access(hash)
-        HashWithIndifferentAccess.new(hash)
-      end
-    end
-
-
-    class Type
-
-      attr_reader :type
-
-      def initialize(type)
-        @type = type
-      end
-
-      def formatted_type
-        type.gsub("-", "_").downcase
-      end
-
-      def to_sym
-        formatted_type.to_sym
-      end
-    end
   end
 end
