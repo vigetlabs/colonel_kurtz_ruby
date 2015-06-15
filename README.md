@@ -2,9 +2,7 @@
 
 Ruby wrapper for Colonel Kurtz data.
 
-[![Code Climate](https://codeclimate.com/github/vigetlabs/colonel_kurtz_ruby/badges/gpa.svg)](https://codeclimate.com/github/vigetlabs/colonel_kurtz_ruby)
-
-[![Test Coverage](https://codeclimate.com/github/vigetlabs/colonel_kurtz_ruby/badges/coverage.svg)](https://codeclimate.com/github/vigetlabs/colonel_kurtz_ruby/coverage)
+[![Code Climate](https://codeclimate.com/github/vigetlabs/colonel_kurtz_ruby/badges/gpa.svg)](https://codeclimate.com/github/vigetlabs/colonel_kurtz_ruby) [![Test Coverage](https://codeclimate.com/github/vigetlabs/colonel_kurtz_ruby/badges/coverage.svg)](https://codeclimate.com/github/vigetlabs/colonel_kurtz_ruby/coverage)
 
 ## Installation
 
