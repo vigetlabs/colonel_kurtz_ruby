@@ -2,7 +2,7 @@ module ColonelKurtz
 
   VERSION = [
     0,    # major
-    0,    # minor
-    2     # patch
+    1,    # minor
+    0     # patch
   ].join('.')
 end

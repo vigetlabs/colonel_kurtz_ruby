@@ -30,6 +30,22 @@ RSpec.describe ColonelKurtz::Block do
     end
   end
 
+  describe "#parent" do
+    context "with no parent block" do
+      it "returns nil" do
+        expect(subject.parent).to be_nil
+      end
+    end
+
+    context "with a parent block" do
+      it "returns the parent block" do
+        child = subject.children.first
+
+        expect(child.parent).to eq(subject)
+      end
+    end
+  end
+
   describe "#children" do
     it "returns the children blocks" do
       child = subject.children.first
