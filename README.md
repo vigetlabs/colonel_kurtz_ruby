@@ -51,10 +51,16 @@ block.type
 block.contents
 #=> { "html" => "<p>Example</p>" }
 
+block.parent
+#=> nil
+
 block.children
 #=> [
-  #<ColonelKurtz::Block:0x007fb0eb7bf950....>
-]
+#  <ColonelKurtz::Block:0x007fb0eb7bf950....>
+#]
+
+block.children[0].parent
+#=> <ColonelKurtz::Block:0x047ae78820c3c0b24...>
 ```
 
 #### Model
