@@ -18,6 +18,8 @@
 module ColonelKurtz
   class Block
 
+    attr_reader :parent
+
     def initialize(data)
       @data = Data.new(data).to_hash
     end
@@ -30,8 +32,12 @@ module ColonelKurtz
       @content ||= data.fetch("content", {})
     end
 
+    def parent
+      @parent ||= data.fetch("parent", nil)
+    end
+
     def children
-      @children ||= blocks.map{ |data| Block.new(data) }
+      @children ||= blocks.map{ |data| Block.new(data.merge("parent" => self)) }
     end
 
 
