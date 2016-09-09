@@ -7,14 +7,10 @@ class BlockableExample
 
   has_blocks :content
 
-  attr_reader :data
+  attr_reader :content
 
-  def initialize(data)
-    @data = data
-  end
-
-  def content
-    JSON.generate(data)
+  def initialize(content)
+    @content = content
   end
 end
 
@@ -34,21 +30,37 @@ RSpec.describe BlockableExample do
     }
   end
 
-  subject { described_class.new(data) }
+  describe "with a JSON string" do
+    subject { described_class.new(JSON.generate(data)) }
 
-  describe ".has_blocks" do
-    it "creates 'field_blocks' accessor" do
-      should respond_to(:content_blocks)
+    describe ".has_blocks" do
+      it "creates 'field_blocks' accessor" do
+        should respond_to(:content_blocks)
+      end
+
+      it "returns an array" do
+        expect(subject.content_blocks).to be_a(Array)
+      end
+
+      it "returns an array of Blocks" do
+        block = subject.content_blocks.first
+
+        expect(block).to be_a(ColonelKurtz::Block)
+      end
     end
 
-    it "returns an array" do
-      expect(subject.content_blocks).to be_a(Array)
-    end
+    describe "with a parsed data structure" do
+      subject { described_class.new(data) }
 
-    it "returns an array of Blocks" do
-      block = subject.content_blocks.first
+      it "returns an array" do
+        expect(subject.content_blocks).to be_a(Array)
+      end
 
-      expect(block).to be_a(ColonelKurtz::Block)
+      it "returns an array of Blocks" do
+        block = subject.content_blocks.first
+
+        expect(block).to be_a(ColonelKurtz::Block)
+      end
     end
 
     context "with bad Colonel Kurtz data" do

@@ -9,7 +9,13 @@ module ColonelKurtz
 
           define_method "#{field}_blocks" do
             begin
-              JSON.parse(send(field)).map{ |data| ColonelKurtz::Block.new(data) }
+              content = send(field)
+
+              if content.is_a?(String)
+                content = JSON.parse(content)
+              end
+
+              content.map { |data| ColonelKurtz::Block.new(data) }
             rescue
               [] # TODO error handling
             end
