@@ -95,6 +95,75 @@ example.content_blocks
 ]
 ```
 
+#### JSONB Datatype
+
+If your database supports it and you're using ActiveRecord, you can also
+serialize the data as the JSONB data type, and deserialize it as a string so it
+can be put into `hidden_input` inputs and updated by ColonelKurtz in forms.
+
+```ruby
+class BlockableExample < ApplicationRecord
+  serialize :data, ColonelKurtz::ActiveRecord::Serializer
+end
+```
+
+#### Why would you want to store as JSONB?
+
+This allows you to construct queries to introspect on the CK data.
+
+Here's an example. Let's say you have a CK block that represents a chosen photo
+from your system, and the output JSON of that block looks like this:
+
+```json
+{
+  "type"    : "example-photo-block",
+  "content" : { "id" : 1 },
+  "blocks"  : []
+}
+```
+
+Let's also say you have a model called `Page` with CK data that contains the
+above block (`Photo` with ID `1`). Wouldn't it be nice to know which pages
+depend on this photo? If the CK data is serialized as JSON, we can find them!
+
+```ruby
+class Photo
+  #...
+
+  def embedded_in_pages
+    @embedded_in_pages ||=
+      Page.joins("JOIN LATERAL jsonb_array_elements(data) block ON block -> 'content' -> 'id' = #{id}")
+          .where("block ->> 'type' IN ('example-photo-block')")
+          .distinct
+  end
+end
+```
+
+Big wins! :tada:
+
+#### What if I'm already storing the blocks as strings?
+
+If you're currently storing CK content as strings, you can update the content to
+be JSONB with this example migration. `Page` is an example ActiveRecord with a
+column `content` that represents the ColonelKurtz data.
+
+```ruby
+class ChangePageContentToJson < ActiveRecord::Migration[5.2]
+  def up
+    change_column :pages, :content, 'jsonb USING CAST(content AS jsonb)', default: '[]'
+    execute "CREATE INDEX pages_content_gin ON pages USING gin (content jsonb_path_ops);"
+  end
+
+  def down
+    execute "DROP INDEX pages_content_gin"
+    change_column :pages, :content, 'text USING CAST(content AS text)'
+  end
+end
+```
+
+[Read more about JSON indexes in
+Postgres.](https://www.postgresql.org/docs/current/static/gin-intro.html)
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
