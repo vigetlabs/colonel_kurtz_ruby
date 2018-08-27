@@ -141,9 +141,9 @@ end
 
 Big wins! :tada:
 
-#### What if I'm already storing the blocks as strings?
+#### What if I'm already storing the blocks as text?
 
-If you're currently storing CK content as strings, you can update the content to
+If you're currently storing CK content as text, you can update the content to
 be JSONB with this example migration. `Page` is an example ActiveRecord with a
 column `content` that represents the ColonelKurtz data.
 
