@@ -159,6 +159,20 @@ class ChangePageContentToJson < ActiveRecord::Migration[5.2]
     change_column :pages, :content, 'text USING CAST(content AS text)'
   end
 end
+
+## When creating new tables
+
+class CreatePages < ActiveRecord::Migration[5.2]
+  def change
+    create_table :pages do |t|
+      # ...
+
+      t.jsonb :content, null: false, default: []
+
+      # ...
+    end
+  end
+end
 ```
 
 [Read more about JSON indexes in
