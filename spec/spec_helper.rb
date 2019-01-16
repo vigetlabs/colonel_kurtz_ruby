@@ -1,8 +1,8 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.configure do |config|
-  config.logger.level = Logger::WARN
+require 'simplecov'
+
+SimpleCov.start "rails" do
+  minimum_coverage 85
 end
-CodeClimate::TestReporter.start
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
